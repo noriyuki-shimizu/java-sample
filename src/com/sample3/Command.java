@@ -64,6 +64,7 @@ public class Command {
     }
 
     private void pay() {
+        // TODO: まだ綺麗になると思うので、綺麗にしてね。
         Price totalPrice = this.order.getTotalPrice();
 
         System.out.println("合計注文数点のご注文で、消費税を入れると" + totalPrice.get() + "円になりますが、 今日はサービスして 100 円以下を切り捨てた金額円で結構です。");
