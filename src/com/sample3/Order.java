@@ -1,6 +1,6 @@
 package com.sample3;
 
-import com.sample3.food.Food;
+import com.sample3.foods.Food;
 
 import java.util.ArrayList;
 import java.util.List;

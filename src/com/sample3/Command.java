@@ -1,6 +1,7 @@
 package com.sample3;
 
-import com.sample3.food.*;
+import com.sample3.Utils.NumberUtil;
+import com.sample3.foods.*;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -14,12 +15,12 @@ public class Command {
 
     public Command() {
         this.foodList = Arrays.asList(
-                new Western(1, "ハンバーグカレードリア", 799),
-                new Western(2, "ベーコンチーズハンバーグ", 999),
-                new Western(3, "3種のエビのドリア", 899),
-                new Dessert(4, "マンゴーのショートケーキ", 499),
-                new Drink(5, "ドリンクバー", 399),
-                new Junk(6, "ポテト", 299)
+                new Western("ハンバーグカレードリア", 799),
+                new Western("ベーコンチーズハンバーグ", 999),
+                new Western("3種のエビのドリア", 899),
+                new Dessert("マンゴーのショートケーキ", 499),
+                new Drink("ドリンクバー", 399),
+                new Junk("ポテト", 299)
         );
     }
 
@@ -39,69 +40,76 @@ public class Command {
 
         System.out.println("お決まりでしたら、番号で教えてください。注文を終える場合は 0 を入力してください。");
         while (true) {
-            try {
-                    int orderNum = scanner.nextInt();
+            String inputOrder = scanner.next();
 
-                    if(orderNum == 0) {
-                        break;
-                    }
+            if (!NumberUtil.isNumber(inputOrder)) {
+                System.out.println("番号を指定してください。");
 
-                    Stream<Food> foodStream = this.foodList.stream().filter(food -> orderNum == food.getId());
-
-                    Food food = foodStream.findFirst().get();
-                    if(this.isNull(food)) {
-                        System.out.println("メニューに存在しません。");
-                        continue;
-                    }
-
-                    this.order.add(food);
-
-            } catch(InputMismatchException e) {
-                System.err.println("数値で入力してください");
+                continue;
             }
+
+            int orderNum = Integer.parseInt(inputOrder);
+
+            if (orderNum == 0) {
+                break;
+            }
+
+            Stream<Food> foodStream = this.foodList.stream().filter(food -> orderNum == food.getId());
+
+            Optional<Food> optionalFood = foodStream.findFirst();
+            if (optionalFood.isEmpty()) {
+                System.out.println("【 " + inputOrder + " 】" + "はメニューに存在しません。");
+                continue;
+            }
+
+            Food food = optionalFood.get();
+
+            this.order.add(food);
+
+            System.out.println("### + " + food.toString());
+            System.out.println("### 現在の合計金額(消費税込み): " + this.order.getTotalPrice().priceFormat() + " 円");
+
         }
     }
 
     private void pay() {
-        // TODO: まだ綺麗になると思うので、綺麗にしてね。
         Price totalPrice = this.order.getTotalPrice();
 
-        System.out.println("合計注文数点のご注文で、消費税を入れると" + totalPrice.get() + "円になりますが、 今日はサービスして 100 円以下を切り捨てた金額円で結構です。");
+        System.out.print("合計注文数点のご注文で、消費税を入れると" + totalPrice.get() + " 円になりますが、 ");
+        System.out.println("今日はサービスして 100 円以下を切り捨てた金額円で結構です。");
 
-        double floorTotalPriceDouble = totalPrice.get() - Math.floor(totalPrice.get() % 100);
-        Price floorTotalPrice = new Price((long) floorTotalPriceDouble);
+        Price servicePrice = totalPrice.getServicePrice();
 
-        System.out.println("請求額: " + floorTotalPrice.get() + " 円");
+        System.out.println("請求額: " + servicePrice.priceFormat() + " 円");
 
         while (true) {
-            try {
-                System.out.print("支払額: ");
+            System.out.print("支払額: ");
 
-                Price inputPrice = new Price(scanner.nextInt());
-                Price diffPrice = new Price(inputPrice.get() - floorTotalPrice.get());
+            String inputPrice = scanner.next();
 
-                System.out.print(" 円");
+            if (!NumberUtil.isNumber(inputPrice)) {
+                System.out.println("支払額は数値で入力してください。");
 
-                if(diffPrice.get() > 0) {
-                    System.out.println("お釣りは" + diffPrice.priceFormat() + "です！");
+                continue;
+            }
 
-                    break;
-                } else if(diffPrice.get() == 0) {
-                    System.out.println("ちょうど、お受取いたします！");
+            Price payPrice = new Price(Integer.parseInt(inputPrice));
+            Price diffPrice = new Price(payPrice.get() - servicePrice.get());
 
-                    break;
-                } else {
-                    Price absPrice = new Price(Math.abs(diffPrice.get()));
-                    System.out.println("請求額より" + absPrice.priceFormat() + "少ないです！！");
-                }
-            } catch(InputMismatchException e) {
-                System.err.println("支払額は数値で入力してください。");
+            if (diffPrice.get() > 0) {
+                System.out.println("お釣りは" + diffPrice.priceFormat() + " 円です！");
+
+                break;
+            } else if (diffPrice.get() == 0) {
+                System.out.println(payPrice.priceFormat() + " 円ちょうど、お受取いたします！");
+
+                break;
+            } else {
+                Price absPrice = new Price(Math.abs(diffPrice.get()));
+                System.out.println("請求額より" + absPrice.priceFormat() + " 円少ないです！！");
             }
         }
         System.out.println("ありがとうございました！");
     }
 
-    private <T> boolean isNull(T t){
-        return t == null;
-    }
 }

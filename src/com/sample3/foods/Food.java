@@ -1,14 +1,15 @@
-package com.sample3.food;
+package com.sample3.foods;
 
 import com.sample3.Price;
+import com.sample3.foods.serial.Id;
 
 public class Food {
     protected long id;
     protected String name;
     protected Price price;
 
-    public Food(long id, String name, int price) {
-        this.id = id;
+    public Food(String name, int price) {
+        this.id = new Id().get();
         this.name = name;
         this.price = new Price(price);
     }

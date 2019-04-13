@@ -24,6 +24,11 @@ public class Price {
         return this.value;
     }
 
+    public Price getServicePrice() {
+        double servicePrice = this.value - Math.floor(this.value % 100);
+        return new Price((long) servicePrice);
+    }
+
     public String priceFormat() {
         NumberFormat numberFormat = NumberFormat.getInstance();
 
