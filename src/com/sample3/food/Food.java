@@ -1,14 +1,16 @@
 package com.sample3.food;
 
+import com.sample3.Price;
+
 public class Food {
     protected long id;
     protected String name;
-    protected int price;
+    protected Price price;
 
     public Food(long id, String name, int price) {
         this.id = id;
         this.name = name;
-        this.price = price;
+        this.price = new Price(price);
     }
 
     public long getId() {
@@ -19,7 +21,7 @@ public class Food {
         return this.name;
     }
 
-    public int getPrice() {
+    public Price getPrice() {
         return this.price;
     }
 
@@ -31,7 +33,7 @@ public class Food {
         stringBuffer.append(". ");
         stringBuffer.append(this.name);
         stringBuffer.append(" ");
-        stringBuffer.append(this.price);
+        stringBuffer.append(this.price.get());
         stringBuffer.append(" 円");
 
         return stringBuffer.toString();

@@ -1,0 +1,32 @@
+package com.sample3;
+
+import java.text.NumberFormat;
+
+public class Price {
+
+    private long value;
+
+    private static double TAX = 1.08;
+
+    private static final Integer MAX = 2147483647;
+
+    private static final Integer MIN = -2147483647;
+
+    public Price(long value) {
+        if(value > this.MAX || value < this.MIN) {
+            throw new IllegalArgumentException("引数情報が不正です。");
+        }
+
+        this.value = value;
+    }
+
+    public long get() {
+        return this.value;
+    }
+
+    public String priceFormat() {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+
+        return numberFormat.format(this.value);
+    }
+}
