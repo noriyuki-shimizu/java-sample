@@ -14,7 +14,7 @@ public class Order {
         long totalPrice = foodList.stream().map(food -> food.getPrice().get())
                                 .reduce((base, price) -> base + price).get();
 
-        return new Price((long) (totalPrice * 1.08));
+        return new Price(totalPrice);
     };
 
     public void add(Food food) {

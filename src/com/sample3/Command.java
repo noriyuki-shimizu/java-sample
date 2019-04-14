@@ -72,10 +72,10 @@ public class Command {
     private void pay() {
         Price totalPrice = this.order.getTotalPrice();
 
-        System.out.print("合計注文数点のご注文で、消費税を入れると" + totalPrice.get() + " 円になりますが、 ");
+        System.out.print("合計注文数点のご注文で、消費税を入れると" + totalPrice.getPlusTax().priceFormat() + " 円になりますが、 ");
         System.out.println("今日はサービスして 100 円以下を切り捨てた金額円で結構です。");
 
-        Price servicePrice = totalPrice.getServicePrice();
+        Price servicePrice = totalPrice.getPlusTax().getServicePrice();
 
         System.out.println("請求額: " + servicePrice.priceFormat() + " 円");
 
@@ -98,7 +98,7 @@ public class Command {
 
                 break;
             } else if (diffPrice.get() == 0) {
-                System.out.println(payPrice.priceFormat() + " 円ちょうど、お受取いたします！");
+                System.out.println(servicePrice.priceFormat() + " 円ちょうど、お受取いたします！");
 
                 break;
             } else {

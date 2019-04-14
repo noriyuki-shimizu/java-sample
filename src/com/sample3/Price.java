@@ -6,7 +6,7 @@ public class Price {
 
     private long value;
 
-    private static double TAX = 1.08;
+    private static final double TAX = 1.08;
 
     private static final Integer MAX = 2147483647;
 
@@ -27,6 +27,11 @@ public class Price {
     public Price getServicePrice() {
         double servicePrice = this.value - Math.floor(this.value % 100);
         return new Price((long) servicePrice);
+    }
+
+    public Price getPlusTax() {
+        double plusTaxPrice = this.value * this.TAX;
+        return new Price((long) plusTaxPrice);
     }
 
     public String priceFormat() {
