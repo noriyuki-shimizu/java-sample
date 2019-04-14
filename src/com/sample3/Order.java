@@ -19,6 +19,9 @@ public class Order {
 
     public void add(Food food) {
         this.orderList.add(food);
+
+        System.out.println("### + " + food.toString());
+        System.out.println("### 現在の合計金額(消費税込み): " + this.getTotalPrice().priceFormat() + " 円");
     }
 
     public Price getTotalPrice() {

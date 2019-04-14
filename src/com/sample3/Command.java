@@ -66,9 +66,6 @@ public class Command {
 
             this.order.add(food);
 
-            System.out.println("### + " + food.toString());
-            System.out.println("### 現在の合計金額(消費税込み): " + this.order.getTotalPrice().priceFormat() + " 円");
-
         }
     }
 
