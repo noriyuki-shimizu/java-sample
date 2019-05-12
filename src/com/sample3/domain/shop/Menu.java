@@ -1,11 +1,15 @@
-package com.sample3;
+package com.sample3.domain.shop;
 
-import com.sample3.foods.Food;
+import com.sample3.domain.foods.Food;
+import com.sample3.domain.foods.list.FoodList;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * メニュー.
+ */
 public class Menu {
 
     private Menu() {}
@@ -14,8 +18,8 @@ public class Menu {
 
     private static List<String> menuList = new ArrayList<>();
 
-    public static Menu getInstance(List<Food> foodList) {
-        menuList = foodList.stream()
+    public static Menu getInstance(FoodList foodList) {
+        menuList = foodList.get().stream()
                          .map(food -> food.toString())
                          .collect(Collectors.toCollection(ArrayList::new));
 

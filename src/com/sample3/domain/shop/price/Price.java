@@ -1,15 +1,22 @@
-package com.sample3;
+package com.sample3.domain.shop.price;
 
 import java.text.NumberFormat;
 
+/**
+ * お店の金額情報.
+ */
 public class Price {
 
+    /** 金額 */
     private long value;
 
-    private static final double TAX = 1.08;
+    /** 消費税 */
+    private static final double TAX = Tax.get();
 
+    /** 最大値 */
     private static final Integer MAX = 2147483647;
 
+    /** 最小値 */
     private static final Integer MIN = -2147483647;
 
     public Price(long value) {

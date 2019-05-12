@@ -1,11 +1,15 @@
-package com.sample3;
+package com.sample3.domain.shop;
 
-import com.sample3.foods.Food;
+import com.sample3.domain.shop.price.Price;
+import com.sample3.domain.foods.Food;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * 注文.
+ */
 public class Order {
 
     private List<Food> orderList = new ArrayList<>();

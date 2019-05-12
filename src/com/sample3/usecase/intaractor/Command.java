@@ -1,44 +1,45 @@
-package com.sample3;
+package com.sample3.usecase.intaractor;
 
-import com.sample3.Utils.NumberUtil;
-import com.sample3.foods.*;
+import com.sample3.domain.foods.list.FoodList;
+import com.sample3.domain.shop.Menu;
+import com.sample3.domain.shop.Order;
+import com.sample3.domain.shop.price.Price;
+import com.sample3.domain.utils.NumberUtil;
+import com.sample3.domain.foods.*;
+import com.sample3.usecase.ICommand;
 
 import java.util.*;
 import java.util.stream.Stream;
 
-public class Command {
+/**
+ * ユースケースによる実装クラス.
+ */
+public class Command implements ICommand {
+    /** 標準入力 */
     private Scanner scanner = new Scanner(System.in);
 
-    private List<Food> foodList;
+    /** フードリスト */
+    private FoodList foodList;
 
+    /** 注文管理 */
     private Order order;
 
-    public Command() {
-        this.foodList = Arrays.asList(
-                new Western("ハンバーグカレードリア", 799),
-                new Western("ベーコンチーズハンバーグ", 999),
-                new Western("3種のエビのドリア", 899),
-                new Dessert("マンゴーのショートケーキ", 499),
-                new Drink("ドリンクバー", 399),
-                new Junk("ポテト", 299)
-        );
+    public Command(FoodList foodList) {
+        this.foodList = foodList;
     }
 
-    public void execute() {
-        this.displayMenuList();
-        this.displayOperation();
-        this.pay();
-    }
-
-    private void displayMenuList() {
+    @Override
+    public void displayMenuList() {
         Menu menu = Menu.getInstance(this.foodList);
         menu.display();
     }
 
-    private void displayOperation() {
+    @Override
+    public void displayOperation() {
         this.order = new Order();
 
         System.out.println("お決まりでしたら、番号で教えてください。注文を終える場合は 0 を入力してください。");
+
         while (true) {
             String inputOrder = scanner.next();
 
@@ -54,22 +55,19 @@ public class Command {
                 break;
             }
 
-            Stream<Food> foodStream = this.foodList.stream().filter(food -> orderNum == food.getId());
-
-            Optional<Food> optionalFood = foodStream.findFirst();
+            Optional<Food> optionalFood = this.foodList.getOrderFood(orderNum);
             if (optionalFood.isEmpty()) {
                 System.out.println("【 " + inputOrder + " 】" + "はメニューに存在しません。");
                 continue;
             }
 
-            Food food = optionalFood.get();
-
-            this.order.add(food);
+            this.order.add(optionalFood.get());
 
         }
     }
 
-    private void pay() {
+    @Override
+    public void pay() {
         Price totalPrice = this.order.getTotalPrice();
 
         System.out.print("合計注文数点のご注文で、消費税を入れると" + totalPrice.getPlusTax().priceFormat() + " 円になりますが、 ");

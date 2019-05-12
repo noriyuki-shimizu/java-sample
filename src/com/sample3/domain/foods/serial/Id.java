@@ -1,5 +1,8 @@
-package com.sample3.foods.serial;
+package com.sample3.domain.foods.serial;
 
+/**
+ * フードに対するID情報.
+ */
 public class Id {
 
     private long value;

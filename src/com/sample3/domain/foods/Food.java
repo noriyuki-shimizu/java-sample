@@ -1,8 +1,11 @@
-package com.sample3.foods;
+package com.sample3.domain.foods;
 
-import com.sample3.Price;
-import com.sample3.foods.serial.Id;
+import com.sample3.domain.shop.price.Price;
+import com.sample3.domain.foods.serial.Id;
 
+/**
+ * フード.
+ */
 public class Food {
     protected long id;
     protected String name;

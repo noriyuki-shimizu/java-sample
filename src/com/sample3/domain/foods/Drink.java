@@ -1,4 +1,4 @@
-package com.sample3.foods;
+package com.sample3.domain.foods;
 
 public class Drink extends Food {
 
