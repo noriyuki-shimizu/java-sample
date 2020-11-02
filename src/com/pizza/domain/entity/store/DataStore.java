@@ -36,11 +36,11 @@ public class DataStore<T extends Entity> {
         box.sort(Comparator.comparing(Entity::getAddedAt));
     }
 
-    public void remove(T entity) {
-        box.remove(entity);
+    public boolean remove(T entity) {
+        return box.remove(entity);
     }
 
-    public void removeAll(Collection<T> entities) {
-        box.removeAll(entities);
+    public boolean removeAll(Collection<T> entities) {
+        return box.removeAll(entities);
     }
 }

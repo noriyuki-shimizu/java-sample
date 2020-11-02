@@ -68,11 +68,17 @@ public abstract class AbstractRepository<E extends Entity, ID> implements Reposi
 
     @Override
     public void delete(E entity) {
-        STORE.remove(entity);
+        final boolean isRemove = STORE.remove(entity);
+        if (!isRemove) {
+            throw new IllegalArgumentException("Cannot find the entity to delete.");
+        }
     }
 
     @Override
     public void deleteAll(List<E> entities) {
-        STORE.removeAll(entities);
+        final boolean isRemoveAll = STORE.removeAll(entities);
+        if (!isRemoveAll) {
+            throw new IllegalArgumentException("Cannot find the entity to delete.");
+        }
     }
 }

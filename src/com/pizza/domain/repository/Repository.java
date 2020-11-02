@@ -1,9 +1,11 @@
 package com.pizza.domain.repository;
 
+import com.pizza.domain.entity.Entity;
+
 import java.util.List;
 import java.util.Optional;
 
-public interface Repository<E, ID> {
+public interface Repository<E extends Entity, ID> {
     List<E> findAll();
 
     Optional<E> findById(ID id);
