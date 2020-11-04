@@ -1,15 +1,15 @@
 package com.sample3.usecase.intaractor;
 
+import com.sample3.domain.foods.Food;
 import com.sample3.domain.foods.list.FoodList;
 import com.sample3.domain.shop.Menu;
 import com.sample3.domain.shop.Order;
 import com.sample3.domain.shop.price.Price;
 import com.sample3.domain.utils.NumberUtil;
-import com.sample3.domain.foods.*;
 import com.sample3.usecase.ICommand;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.Optional;
+import java.util.Scanner;
 
 /**
  * ユースケースによる実装クラス.
