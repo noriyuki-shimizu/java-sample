@@ -9,8 +9,8 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
-public abstract class AbstractRepository<E extends Entity, ID> implements Repository<E, ID> {
-    protected final DataStore<E> STORE = DataStore.of();
+public abstract class AbstractRepository<E extends Entity<ID>, ID> implements Repository<E, ID> {
+    protected final DataStore<E, ID> STORE = DataStore.of();
 
     @Override
     public List<E> findAll() {
@@ -39,31 +39,28 @@ public abstract class AbstractRepository<E extends Entity, ID> implements Reposi
         if (ids.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        //noinspection SuspiciousMethodCalls
         return STORE.get().stream()
                 .filter(S -> ids.contains(S.getId()))
                 .collect(toList());
     }
 
     @Override
-    public E save(E entity) {
+    public void save(E entity) {
         STORE.get().stream()
                 .filter(s -> s.getId().equals(entity.getId()))
                 .forEach(STORE::remove);
 
         STORE.add(entity);
-        return entity;
     }
 
     @Override
-    public List<E> saveAll(List<E> entities) {
-        final List<String> ids = entities.stream().map(Entity::getId).collect(toList());
+    public void saveAll(List<E> entities) {
+        final List<ID> ids = entities.stream().map(Entity::getId).collect(toList());
         STORE.get().stream()
                 .filter(s -> ids.contains(s.getId()))
                 .forEach(STORE::remove);
 
         STORE.addAll(entities);
-        return entities;
     }
 
     @Override

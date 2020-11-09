@@ -1,22 +1,20 @@
 package com.pizza.domain.entity;
 
-import java.util.UUID;
+public abstract class Entity<ID> implements Cloneable {
+    protected final ID id;
+    protected final long order;
 
-public abstract class Entity implements Cloneable {
-    protected final String id;
-    protected final long addedAt;
-
-    protected Entity() {
-        this.id = UUID.randomUUID().toString();
-        addedAt = System.currentTimeMillis();
+    protected Entity(final ID id, long order) {
+        this.id = id;
+        this.order = order;
     }
 
-    public String getId() {
+    public ID getId() {
         return id;
     }
 
-    public long getAddedAt() {
-        return addedAt;
+    public long getOrder() {
+        return order;
     }
 
     @Override

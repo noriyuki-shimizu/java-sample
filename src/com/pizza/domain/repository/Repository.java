@@ -5,16 +5,16 @@ import com.pizza.domain.entity.Entity;
 import java.util.List;
 import java.util.Optional;
 
-public interface Repository<E extends Entity, ID> {
+public interface Repository<E extends Entity<ID>, ID> {
     List<E> findAll();
 
     Optional<E> findById(ID id);
 
     List<E> findAllById(List<ID> ids);
 
-    E save(E entity);
+    void save(E entity);
 
-    List<E> saveAll(List<E> entities);
+    void saveAll(List<E> entities);
 
     void delete(E entity);
 
