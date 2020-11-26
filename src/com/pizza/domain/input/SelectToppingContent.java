@@ -18,7 +18,7 @@ public class SelectToppingContent extends SelectContent<Topping> {
     }
 
     @Override
-    Topping get() {
+    public Topping get() {
         contents.forEach(topping -> {
             final String money = CURRENCY_FORMAT.format(topping.getMoney());
             final String displayInformation = String.format("%3d. %s ...%s", topping.getOrder(), topping.getName(), money);

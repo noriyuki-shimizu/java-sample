@@ -18,7 +18,7 @@ public class SelectSizeContent extends SelectContent<Size> {
     }
 
     @Override
-    Size get() {
+    public Size get() {
         contents.forEach(size -> {
             final String displayInformation = String.format("%3d. %s ...%f", size.getOrder(), size.getName(), size.getRatio());
             System.out.println(displayInformation);
