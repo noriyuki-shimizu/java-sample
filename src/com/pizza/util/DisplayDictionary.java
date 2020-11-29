@@ -9,6 +9,7 @@ public class DisplayDictionary {
     private static final String TOPPING = "トッピング";
     private static final String PRICE = "金額";
     private static final String PAYMENT_PRICE = "支払い金額";
+    private static final String ONLY_YES_OR_NO = "%d か %d を選択してください。";
     private static final String SELECT_PRODUCT = "以下の %d ~ %d のメニューからお好きなものを注文してください！";
     private static final String SELECT_PRODUCT_NOT_FOUND = "申し訳ございません。%d のメニューは存在しません。";
     private static final String SELECT_SIZE = "サイズを以下の %d ~ %d からお選びください！";
@@ -52,6 +53,10 @@ public class DisplayDictionary {
 
     public static String paymentPrice() {
         return PAYMENT_PRICE;
+    }
+
+    public static String onlyYesOrNo(final int yes, final int no) {
+        return String.format(ONLY_YES_OR_NO, yes, no);
     }
 
     public static String selectProduct(final long minNo, final long maxNo) {
