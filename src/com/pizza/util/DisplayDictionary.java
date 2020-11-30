@@ -10,11 +10,11 @@ public class DisplayDictionary {
     private static final String PRICE = "金額";
     private static final String PAYMENT_PRICE = "支払い金額";
     private static final String ONLY_YES_OR_NO = "%d か %d を選択してください。";
-    private static final String SELECT_PRODUCT = "以下の %d ~ %d のメニューからお好きなものを注文してください！";
+    private static final String SELECT_PRODUCT = "下記のメニューからお好きなものを注文してください！";
     private static final String SELECT_PRODUCT_NOT_FOUND = "申し訳ございません。%d のメニューは存在しません。";
-    private static final String SELECT_SIZE = "サイズを以下の %d ~ %d からお選びください！";
+    private static final String SELECT_SIZE = "サイズを下記からお選びください！";
     private static final String SELECT_SIZE_NOT_FOUND = "申し訳ございません。%d のサイズは存在しません。";
-    private static final String SELECT_TOPPING = "トッピングを以下の %d ~ %d からお選びください！";
+    private static final String SELECT_TOPPING = "トッピングを下記からお選びください！";
     private static final String SELECT_TOPPING_NOT_FOUND = "申し訳ございません。%d のトッピングは存在しません。";
     private static final String ONLY_NUMERIC = "数値のみ入力してください。";
     private static final String REORDER = "さらに注文しますか？";
@@ -59,24 +59,24 @@ public class DisplayDictionary {
         return String.format(ONLY_YES_OR_NO, yes, no);
     }
 
-    public static String selectProduct(final long minNo, final long maxNo) {
-        return String.format(SELECT_PRODUCT, minNo, maxNo);
+    public static String selectProduct() {
+        return SELECT_PRODUCT;
     }
 
     public static String selectProductNotFound(final long no) {
         return String.format(SELECT_PRODUCT_NOT_FOUND, no);
     }
 
-    public static String selectSize(final long minNo, final long maxNo) {
-        return String.format(SELECT_SIZE, minNo, maxNo);
+    public static String selectSize() {
+        return SELECT_SIZE;
     }
 
     public static String selectSizeNotFound(final long no) {
         return String.format(SELECT_SIZE_NOT_FOUND, no);
     }
 
-    public static String selectTopping(final long minNo, final long maxNo) {
-        return String.format(SELECT_TOPPING, minNo, maxNo);
+    public static String selectTopping() {
+        return SELECT_TOPPING;
     }
 
     public static String selectToppingNotFound(final long no) {
