@@ -13,7 +13,7 @@ public class SelectAnswer {
      * yes か no を判定します.
      * @return yes: true, no: false
      */
-    public boolean is() {
+    public static boolean is() {
         final String yesMessage = String.format("%d: %s", Answer.YES.getValue(), "はい");
         final String noMessage = String.format("%d: %s", Answer.NO.getValue(), "いいえ");
         System.out.println(yesMessage);
