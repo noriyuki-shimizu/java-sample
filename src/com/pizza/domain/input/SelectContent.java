@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class SelectContent<T> {
-    protected static final NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance();
+    protected static final NumberFormat CURRENCY_FORMAT = NumberFormat.getNumberInstance();
     protected static final Scanner SCANNER = new Scanner(System.in);
 
     protected final List<T> contents;
