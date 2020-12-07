@@ -1,43 +1,33 @@
 package com.pizza.domain;
 
+import java.util.List;
+import java.util.function.IntUnaryOperator;
+
 public enum  ProductSize {
-    SMALL("S", 0.8) {
-        @Override
-        public int calc(int price) {
-            return (int) (price * SMALL.ratio);
-        }
-    },
-
-    MEDIUM("M", 1.0){
-        @Override
-        public int calc(int price) {
-            return (int) (price * MEDIUM.ratio);
-        }
-    },
-
-    LARGE("L", 1.2){
-        @Override
-        public int calc(int price) {
-            return (int) (price * LARGE.ratio);
-        }
-    }
+    SMALL("S", 0.8, price -> (int) (price * 0.8)),
+    MEDIUM("M", 1.0, price -> (int) (price * 1.0)),
+    LARGE("L", 1.2, price -> (int) (price * 1.2))
     ;
     
     private final String label;
-    private final Double ratio;
+    private final double ratio;
+    private final IntUnaryOperator intUnaryOperator;
     
-    ProductSize(final String label, final Double ratio) {
+    ProductSize(final String label, final double ratio, final IntUnaryOperator intUnaryOperator) {
         this.label = label;
         this.ratio = ratio;
+        this.intUnaryOperator = intUnaryOperator;
     }
-    
-    public abstract int calc(int price);
+
+    public int calc(int price) {
+        return this.intUnaryOperator.applyAsInt(price);
+    }
 
     public String getLabel() {
         return label;
     }
 
-    public Double getRatio() {
+    public double getRatio() {
         return ratio;
     }
 }
